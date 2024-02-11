@@ -20,3 +20,7 @@ My personal Neovim configuration focusing on Rust development.
 ## Tips and tricks
 
 Make your neovim config more accessible using a `.bashrc` alias: `alias vc="nvim ~/.config/nvim"`
+
+## Gotchas
+
+TODO...
