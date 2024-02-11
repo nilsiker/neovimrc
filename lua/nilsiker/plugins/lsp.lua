@@ -1,5 +1,6 @@
 return {
     "neovim/nvim-lspconfig",
+    priority = 1000,
     dependencies = {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
@@ -11,9 +12,13 @@ return {
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
         "j-hui/fidget.nvim",
+        'folke/neodev.nvim',
+        "folke/neoconf.nvim",
     },
-
     config = function()
+        require('neodev').setup()
+        require("neoconf").setup()
+
         local cmp = require('cmp')
         local cmp_lsp = require("cmp_nvim_lsp")
         local capabilities = vim.tbl_deep_extend(
@@ -28,12 +33,26 @@ return {
             ensure_installed = {
                 "lua_ls",
                 "tsserver",
+                "jsonls",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
                     require("lspconfig")[server_name].setup {
                         capabilities = capabilities
                     }
+                end,
+
+                ["jsonls"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.jsonls.setup {
+                        capabilities = capabilities,
+                        settings = {
+                            json = {
+                                format = {
+                                    enable = true,
+                                },
+                            },
+                            validate = { enable = true }, } }
                 end,
 
                 ["lua_ls"] = function()
