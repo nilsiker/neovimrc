@@ -19,7 +19,24 @@ My personal Neovim configuration focusing on Rust development.
 
 ## Tips and tricks
 
-Make your neovim config more accessible using a `.bashrc` alias: `alias vc="nvim ~/.config/nvim"`
+Make your neovim config more accessible in bash using a `.bashrc` alias: 
+
+```bash
+alias vc="nvim ~/.config/nvim"
+```
+
+or in PowerShell by editing the $profile file:
+
+```powershell
+function configureNvim {
+    nvim C:\Users\nilsi\AppData\Local\nvim
+}
+
+Set-Alias v nvim
+Set-Alias vc configureNvim
+```
+
+
 
 ## Gotchas
 
