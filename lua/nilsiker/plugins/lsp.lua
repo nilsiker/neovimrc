@@ -15,6 +15,7 @@ return {
         'folke/neodev.nvim',
         "folke/neoconf.nvim",
     },
+    options = { inlay_hints = { enabled = true } },
     config = function()
         require('neodev').setup()
         require("neoconf").setup()
@@ -25,7 +26,8 @@ return {
             "force",
             {},
             vim.lsp.protocol.make_client_capabilities(),
-            cmp_lsp.default_capabilities())
+            cmp_lsp.default_capabilities()
+        )
 
         require("fidget").setup({})
         require("mason").setup()
@@ -75,7 +77,8 @@ return {
                     lspconfig.emmet_ls.setup({
                         -- on_attach = on_attach,
                         capabilities = capabilities,
-                        filetypes = { "rust", "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue" },
+                        -- add "rust" to add emmet for rsx stuff (should find a way to scope this more)
+                        filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue" },
                         init_options = {
                             html = {
                                 options = {
@@ -127,10 +130,10 @@ return {
 
         -- Global mappings.
         -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-        vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-        vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-        vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-        vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+        vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float)
+        vim.keymap.set('n', '<leader>dp', vim.diagnostic.goto_prev)
+        vim.keymap.set('n', '<leader>dn', vim.diagnostic.goto_next)
+        vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
         -- Use LspAttach autocommand to only map the following keys
         -- after the language server attaches to the current buffer

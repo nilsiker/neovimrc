@@ -8,3 +8,9 @@ vim.keymap.set(
     end,
     { silent = true, buffer = bufnr }
 )
+
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(event)
+        vim.lsp.inlay_hint.enable(0, true)
+    end
+})
