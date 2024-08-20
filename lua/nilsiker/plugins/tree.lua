@@ -13,6 +13,10 @@ return {
         vim.keymap.set("n", "<leader>b", vim.cmd.NvimTreeFocus)
 
         -- empty setup using defaults
-        require("nvim-tree").setup()
+        require("nvim-tree").setup({
+            view = {
+                side = "right"
+            }
+        })
     end
 }

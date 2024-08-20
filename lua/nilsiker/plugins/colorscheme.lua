@@ -1,7 +1,7 @@
 return {
-	"bluz71/vim-nightfly-guicolors",
-	priority=1000,
-	config = function() 
-		vim.cmd [[colorscheme nightfly]]
-	end
+    "ellisonleao/gruvbox.nvim",
+    priority = 1000,
+    config = function()
+        vim.cmd [[colorscheme gruvbox]]
+    end
 }

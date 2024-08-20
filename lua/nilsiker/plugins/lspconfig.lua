@@ -12,12 +12,11 @@ return {
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
         "j-hui/fidget.nvim",
-        'folke/neodev.nvim',
+        "folke/lazydev.nvim",
         "folke/neoconf.nvim",
     },
-    options = { inlay_hints = { enabled = true } },
     config = function()
-        require('neodev').setup()
+        require('lazydev').setup()
         require("neoconf").setup()
 
         local cmp = require('cmp')
@@ -29,6 +28,7 @@ return {
             cmp_lsp.default_capabilities()
         )
 
+
         require("fidget").setup({})
         require("mason").setup()
         require("mason-lspconfig").setup({
@@ -37,6 +37,7 @@ return {
                 "tsserver",
                 "jsonls",
                 "emmet_ls",
+                "wgsl_analyzer",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -56,6 +57,10 @@ return {
                                 },
                             },
                             validate = { enable = true }, } }
+                end,
+
+                ["wgsl_analyzer"] = function()
+                    require 'lspconfig'.wgsl_analyzer.setup {}
                 end,
 
                 ["lua_ls"] = function()
@@ -88,7 +93,7 @@ return {
                             },
                         }
                     })
-                end
+                end,
             }
         })
 
@@ -116,23 +121,57 @@ return {
             })
         })
 
+        -- Godot setup
+        if vim.fn.filereadable(vim.fn.getcwd() .. '/project.godot') == 1 then
+            local addr = '../godot.pipe'
+            if vim.fn.has 'win32' == 1 then
+                addr = '127.0.0.1:6004'
+            end
+            vim.fn.serverstart(addr)
+        end
+
+        local gd_config = {
+            capabilities = capabilities,
+            settings = {}
+        }
+        if vim.fn.has 'win32' == 1 then
+            gd_config['cmd'] = { 'ncat', 'localhost', os.getenv 'GDScript_Port' or '6005' }
+        end
+        require('lspconfig').gdscript.setup(gd_config)
+
         vim.diagnostic.config({
             -- update_in_insert = true,
+
             float = {
                 focusable = false,
                 style = "minimal",
                 border = "rounded",
-                source = "always",
+                source = true,
                 header = "",
                 prefix = "",
             },
         })
+        --- end godot setup
+
+
 
         -- Global mappings.
         -- See `:help vim.diagnostic.*` for documentation on any of the below functions
         vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float)
-        vim.keymap.set('n', '<leader>dp', vim.diagnostic.goto_prev)
-        vim.keymap.set('n', '<leader>dn', vim.diagnostic.goto_next)
+        vim.keymap.set('n', '<leader>dp', function()
+            local opts = {
+                severity = vim.diagnostic.severity.WARN,
+                float = true
+            }
+            vim.diagnostic.goto_prev(opts)
+        end)
+        vim.keymap.set('n', '<leader>dn', function()
+            local opts = {
+                severity = vim.diagnostic.severity.WARN,
+                float = true
+            }
+            vim.diagnostic.goto_next(opts)
+        end)
         vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
         -- Use LspAttach autocommand to only map the following keys

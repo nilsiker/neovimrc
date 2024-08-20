@@ -11,10 +11,13 @@ vim.keymap.set("n", "<leader>gl", "<cmd>CellularAutomaton game_of_life<CR>")
 vim.keymap.set("n", "€", "<Home>")
 
 vim.keymap.set("n", "<leader>li", function()
-    vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled(0))
+    vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled(nil))
 end)
 
 vim.keymap.set("n", "€", "<Home>")
 
 
 vim.keymap.set("n", "<leader>cr", ":!cargo run<CR>")
+
+
+vim.keymap.set("n", "<leader>tt", ":Trouble<CR>")
