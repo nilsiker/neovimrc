@@ -1,19 +1,14 @@
 return {
-    "mfussenegger/nvim-dap",
+    'theHamsta/nvim-dap-virtual-text',
+    dependencies = { "mfussenegger/nvim-dap" },
     config = function()
         local dap = require('dap')
+        vim.keymap.set("n", "db", dap.toggle_breakpoint)
+        vim.keymap.set("n", "<F5>", dap.continue)
+        vim.keymap.set("n", "<F8>", dap.close)
+        vim.keymap.set("n", "<F9>", dap.step_over)
+        vim.keymap.set("n", "<F10>", dap.step_into)
 
-        vim.keymap.set("n", "<F5>", function()
-            dap.continue()
-        end)
-        vim.keymap.set("n", "<F8>", function()
-            dap.stop()
-        end)
-        vim.keymap.set("n", "<F9>", function()
-            dap.step_over()
-        end)
-        vim.keymap.set("n", "<F10>", function()
-            dap.step_into()
-        end)
+        require("nvim-dap-virtual-text").setup({})
     end
 }

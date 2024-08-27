@@ -1,6 +1,6 @@
 return {
     'mrcjkb/rustaceanvim',
-    version = '^4',
+    version = '^5',
     lazy = false,
     config = function()
         local bufnr = vim.api.nvim_get_current_buf()
