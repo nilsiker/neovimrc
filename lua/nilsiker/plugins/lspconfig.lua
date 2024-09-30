@@ -34,10 +34,8 @@ return {
         require("mason-lspconfig").setup({
             ensure_installed = {
                 "lua_ls",
-                "tsserver",
                 "jsonls",
                 "emmet_ls",
-                "wgsl_analyzer",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -121,23 +119,6 @@ return {
             })
         })
 
-        -- Godot setup
-        if vim.fn.filereadable(vim.fn.getcwd() .. '/project.godot') == 1 then
-            local addr = '../godot.pipe'
-            if vim.fn.has 'win32' == 1 then
-                addr = '127.0.0.1:6004'
-            end
-            vim.fn.serverstart(addr)
-        end
-
-        local gd_config = {
-            capabilities = capabilities,
-            settings = {}
-        }
-        if vim.fn.has 'win32' == 1 then
-            gd_config['cmd'] = { 'ncat', 'localhost', os.getenv 'GDScript_Port' or '6005' }
-        end
-        require('lspconfig').gdscript.setup(gd_config)
 
         vim.diagnostic.config({
             -- update_in_insert = true,
@@ -151,23 +132,18 @@ return {
                 prefix = "",
             },
         })
-        --- end godot setup
-
-
 
         -- Global mappings.
         -- See `:help vim.diagnostic.*` for documentation on any of the below functions
         vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float)
         vim.keymap.set('n', '<leader>dp', function()
             local opts = {
-                severity = vim.diagnostic.severity.WARN,
                 float = true
             }
             vim.diagnostic.goto_prev(opts)
         end)
         vim.keymap.set('n', '<leader>dn', function()
             local opts = {
-                severity = vim.diagnostic.severity.WARN,
                 float = true
             }
             vim.diagnostic.goto_next(opts)
