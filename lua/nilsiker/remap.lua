@@ -18,3 +18,5 @@ vim.keymap.set("n", "€", "<Home>")
 
 
 vim.keymap.set("n", "<leader>cr", ":!cargo run<CR>")
+
+-- function to print hello world
