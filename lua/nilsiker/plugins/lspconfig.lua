@@ -28,7 +28,7 @@ return {
                 "lua_ls",
             },
             ensure_installed = {
-                "lua_ls"
+                "lua_ls",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
