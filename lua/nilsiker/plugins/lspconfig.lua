@@ -2,10 +2,10 @@ return {
     "neovim/nvim-lspconfig",
     priority = 1000,
     dependencies = {
+        "folke/lazydev.nvim",
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
         "L3MON4D3/LuaSnip",
-        "folke/lazydev.nvim",
         "folke/neoconf.nvim",
         "hrsh7th/cmp-nvim-lsp",
     },
@@ -18,7 +18,7 @@ return {
             cmp_lsp.default_capabilities()
         )
 
-        require('lazydev').setup()
+        require('lazydev').setup() -- setup some niceties for lua lsp (like vim globals)
         --        require("neoconf").setup()
         require("mason").setup()
         require("mason-lspconfig").setup({
