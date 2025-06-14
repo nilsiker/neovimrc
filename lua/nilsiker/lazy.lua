@@ -9,6 +9,8 @@ if not vim.loop.fs_stat(lazypath) then
         lazypath,
     })
 end
+
+-- Put lazy in the nvim runtime path
 vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = " " -- Make sure to set `mapleader` before lazy so your mappings are correct

@@ -5,7 +5,6 @@ return {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
         "L3MON4D3/LuaSnip",
-        "j-hui/fidget.nvim",
         "folke/lazydev.nvim",
         "folke/neoconf.nvim",
         "hrsh7th/cmp-nvim-lsp",
@@ -20,8 +19,7 @@ return {
         )
 
         require('lazydev').setup()
-        require("neoconf").setup()
-        require("fidget").setup({})
+        --        require("neoconf").setup()
         require("mason").setup()
         require("mason-lspconfig").setup({
             automatic_installation = {
