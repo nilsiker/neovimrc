@@ -76,13 +76,27 @@ return {
         -- after the language server attaches to the current buffer
         vim.api.nvim_create_autocmd('LspAttach', {
             group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-            callback = function(ev)
+            callback = function(args)
+                local client = vim.lsp.get_client_by_id(args.data.client_id)
+                if not client then return end
+
+                -- setup format on save
+                ---@diagnostic disable-next-line: missing-parameter, param-type-mismatch
+                if client.supports_method("textDocument/formatting") then
+                    vim.api.nvim_create_autocmd('BufWritePre', {
+                        buffer = args.buf,
+                        callback = function()
+                            vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
+                        end
+                    })
+                end
+
                 -- Enable completion triggered by <c-x><c-o>
-                vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+                vim.bo[args.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
                 -- Buffer local mappings.
                 -- See `:help vim.lsp.*` for documentation on any of the below functions
-                local opts = { buffer = ev.buf }
+                local opts = { buffer = args.buf }
                 vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
                 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
                 vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
