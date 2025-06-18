@@ -1,3 +1,4 @@
+-- harpoon is used for quickly marking and jumping between files
 return {
     "theprimeagen/harpoon",
     enabled = false,

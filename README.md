@@ -10,7 +10,6 @@ Below you'll find a breakdown of the plugins I use, organized by functionality.
 
 - treesitter - _for parsing syntax_
 - lspconfig - _handles all LSP related setup_
-- format-on-save
 - rustaceanvim - _automagical setup and conf for Rust development_
 
 ### Editing QoL

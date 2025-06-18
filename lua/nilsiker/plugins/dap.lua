@@ -1,6 +1,9 @@
+-- dap is a Debug Adapter Protocol client impl for nvim
 return {
-    'theHamsta/nvim-dap-virtual-text',
-    dependencies = { "mfussenegger/nvim-dap" },
+    "mfussenegger/nvim-dap",
+    dependencies = {
+        'theHamsta/nvim-dap-virtual-text', -- ghost text functionality for dap
+    },
     config = function()
         local dap = require('dap')
         vim.keymap.set("n", "db", dap.toggle_breakpoint)

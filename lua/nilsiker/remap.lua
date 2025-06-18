@@ -1,7 +1,8 @@
-vim.keymap.set("n", "<leader>we", vim.cmd.w)
+vim.keymap.set("n", "<leader>ww", vim.cmd.w)
 vim.keymap.set("n", "<leader>wa", vim.cmd.wa)
 vim.keymap.set("n", "<leader>wq", vim.cmd.wq)
-vim.keymap.set("n", "<leader>q", vim.cmd.q)
+vim.keymap.set("n", "<leader>qq", vim.cmd.q)
+vim.keymap.set("n", "<leader>qa", vim.cmd.qa)
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -19,4 +20,4 @@ vim.keymap.set("n", "€", "<Home>")
 
 vim.keymap.set("n", "<leader>cr", ":!cargo run<CR>")
 
--- function to print hello world
+vim.api.nvim_set_keymap('i', '<C-c>', '<Esc>', { noremap = true, silent = true })

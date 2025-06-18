@@ -19,7 +19,7 @@ return {
         )
 
         require('lazydev').setup() -- setup some niceties for lua lsp (like vim globals)
-        --        require("neoconf").setup()
+        require("neoconf").setup()
         require("mason").setup()
         require("mason-lspconfig").setup({
             automatic_installation = {
@@ -33,9 +33,6 @@ return {
                     require("lspconfig")[server_name].setup {
                         capabilities = capabilities
                     }
-                end,
-                ["wgsl_analyzer"] = function()
-                    require 'lspconfig'.wgsl_analyzer.setup {}
                 end,
 
                 ["lua_ls"] = function()
@@ -69,6 +66,11 @@ return {
                         }
                     })
                 end,
+
+                ["erlangls"] = function()
+                    local lspconfig = require 'lspconfig'
+                    lspconfig.erlang_ls.setup({})
+                end
             }
         })
 
@@ -89,6 +91,8 @@ return {
                             vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
                         end
                     })
+                else
+                    print('lsp ' .. client.id .. ' does not support formatting')
                 end
 
                 -- Enable completion triggered by <c-x><c-o>
@@ -112,7 +116,7 @@ return {
                 vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
                 vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
                 vim.keymap.set('n', '<space>f', function()
-                    vim.lsp.buf.format { async = true }
+                    vim.lsp.buf.format { bufnr = args.buf, id = client.id }
                 end, opts)
             end,
         })
