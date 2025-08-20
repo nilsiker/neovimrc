@@ -20,7 +20,7 @@ return {
 
         require('lazydev').setup() -- setup some niceties for lua lsp (like vim globals)
         require("neoconf").setup()
-        require("mason").setup()
+        require("mason").setup({})
         require("mason-lspconfig").setup({
             automatic_installation = {
                 "lua_ls",
@@ -70,7 +70,7 @@ return {
                 ["erlangls"] = function()
                     local lspconfig = require 'lspconfig'
                     lspconfig.erlang_ls.setup({})
-                end
+                end,
             }
         })
 

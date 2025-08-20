@@ -27,7 +27,7 @@ return {
             --    }
             --}
             file_ignore_patterns = {
-                "%.uid"
+                "%.uid$"
             }
         })
     end
